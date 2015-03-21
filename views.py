@@ -46,5 +46,5 @@ def cui_local(request):
 
     return render_cui({
         'in_local': True,
-        'title': 'CUI'
+        'title': 'BISCUIT'
     })
