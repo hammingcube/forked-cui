@@ -988,8 +988,9 @@ function CandidateUi(options)
                         });
     };
 
-    self.reloadTaskError = function() {
+    self.reloadTaskError = function(data) {
         Console.msg_syserr("Could not load task");
+        Console.msg_syserr("data: " + JSON.stringify(data));
         $('#task_description').html("Could not load task description");
         self.editor.setPrgLang(null);
         self.editor.setValue("Could not load solution. Please refresh the page in the browser.");

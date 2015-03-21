@@ -28,5 +28,9 @@ import views, run_settings
 urlpatterns = patterns(
     'views',
     url(r'^test/$', 'cui_test', name='cui_test'),
-    url(r'^local/$', 'cui_local', name='cui_local')
+    url(r'^local/$', 'cui_local', name='cui_local'),
+    url(r'^local/ajax/options$', 'server_options', name='server_options'),
+    url(r'^bit/c/(\w+)', 'bit_handler', name='bit_handler'),
+    url(r'chk/clock', 'clock_handler', name='clock_handler')
+
 )
