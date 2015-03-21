@@ -69,6 +69,39 @@ SERVER_UI_OPTIONS = {
         },
     }
 
+TASK_RESP = {
+	"task_status": "open",
+	"task_description": "Description: task1,en,c",
+	"task_type": "algo",
+	"solution_template": "",
+	"current_solution": "",
+	"example_input": "",
+	"prg_lang_list": ["c", "cpp"],
+	"human_lang_list": ["en", "cn"],
+	"prg_lang": "c",
+	"human_lang": "en"
+}
+
+XML_RESP = """<?xml version="1.0" encoding="UTF-8"?>
+<response>
+   <current_solution />
+   <example_input />
+   <human_lang>en</human_lang>
+   <human_lang_list>
+      <element>en</element>
+      <element>cn</element>
+   </human_lang_list>
+   <prg_lang>c</prg_lang>
+   <prg_lang_list>
+      <element>c</element>
+      <element>cpp</element>
+   </prg_lang_list>
+   <solution_template />
+   <task_description>Description: task1,en,c</task_description>
+   <task_status>open</task_status>
+   <task_type>algo</task_type>
+</response>"""
+
 def render_cui(context):
     context = context.copy()
     context['STATIC_URL'] = settings.STATIC_URL
@@ -104,7 +137,7 @@ def bit_handler(request, cmd):
 	if cmd == '_start':
 		return HttpResponse(json.dumps({'started': 'OK'}), content_type="application/json")
 	elif cmd == '_get_task':
-		return  HttpResponse("""{"task_status":"open","task_description":"Description: task1,en,c","task_type":"algo","solution_template":"Start: task1,en,c","current_solution":"Start: task1,en,c","example_input":"Example input: task1,en,c","prg_lang_list":"[\"c\",\"cpp\"]","human_lang_list":"[\"en\",\"cn\"]","prg_lang":"c","human_lang":"en"}""", content_type="application/json")
+		return  HttpResponse(XML_RESP, content_type="text/xml; charset=utf-8")
 	else:
 		return HttpResponse("Not Found")
 

@@ -61,3 +61,4 @@ function getParams(query) {
         params[decode(match[1])] = decode(match[2]);
     return params;
 }
+
