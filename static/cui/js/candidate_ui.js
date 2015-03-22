@@ -905,9 +905,9 @@ function CandidateUi(options)
         var example_input = xmlNodeValue(data, 'response example_input');
         var prg_lang = xmlNodeValue(data, 'response prg_lang');
         var human_lang = xmlNodeValue(data, 'response human_lang');
-        var human_lang_list = ['en', 'cn'];//JSON.parse(xmlNodeValue(data, 'response human_lang_list'));
+        var human_lang_list = JSON.parse(xmlNodeValue(data, 'response human_lang_list'));
 
-        self.current_prg_lang_list = ['c', 'cpp'];//JSON.parse(xmlNodeValue(data, 'response prg_lang_list'));
+        self.current_prg_lang_list = JSON.parse(xmlNodeValue(data, 'response prg_lang_list'));
         self.task.name = task;
         self.task.type = task_type;
         self.task.solution_template = solution_template;

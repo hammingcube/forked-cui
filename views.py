@@ -25,7 +25,7 @@ from django.template.response import SimpleTemplateResponse
 from django.conf import settings
 from django.template.response import HttpResponse
 import json
-
+from django.views.decorators.csrf import csrf_exempt
 
 SERVER_UI_OPTIONS = {
         "ticket_id": "TICKET_ID",
@@ -102,6 +102,19 @@ XML_RESP = """<?xml version="1.0" encoding="UTF-8"?>
    <task_type>algo</task_type>
 </response>"""
 
+XML_RESP2 = """<response>
+     <task_status>open</task_status>
+     <task_description>Description: task1,en,c</task_description>
+     <task_type>algo</task_type>
+     <solution_template></solution_template>
+     <current_solution></current_solution>
+     <example_input></example_input>
+     <prg_lang_list>[&#34;c&#34;,&#34;cpp&#34;]</prg_lang_list>
+     <human_lang_list>[&#34;en&#34;,&#34;cn&#34;]</human_lang_list>
+     <prg_lang>c</prg_lang>
+     <human_lang>en</human_lang>
+ </response>"""
+
 def render_cui(context):
     context = context.copy()
     context['STATIC_URL'] = settings.STATIC_URL
@@ -127,20 +140,23 @@ def cui_local(request):
         'title': 'BISCUIT',
     })
 
+@csrf_exempt
 def server_options(request):
 	'''Server options.'''
 	print("Here")
 	return HttpResponse(json.dumps(SERVER_UI_OPTIONS))
 
+@csrf_exempt
 def bit_handler(request, cmd):
 	print("In bit_handler, received {cmd}".format(cmd=cmd))
 	if cmd == '_start':
 		return HttpResponse(json.dumps({'started': 'OK'}), content_type="application/json")
 	elif cmd == '_get_task':
-		return  HttpResponse(XML_RESP, content_type="text/xml; charset=utf-8")
+		return  HttpResponse(XML_RESP2, content_type="text/xml; charset=utf-8")
 	else:
 		return HttpResponse("Not Found")
 
+@csrf_exempt
 def clock_handler(request):
 	print('Clock handler called')
 	return HttpResponse(json.dumps({
